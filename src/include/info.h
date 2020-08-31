@@ -33,6 +33,8 @@ struct ncclInfo {
   ncclDataType_t datatype;
   ncclRedOp_t op;
   int root;
+  int* group;
+  int grpsize;
   ncclComm_t comm;
   cudaStream_t stream;
   // Algorithm details

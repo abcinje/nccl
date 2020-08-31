@@ -129,7 +129,7 @@ struct ncclPeer {
 
 struct ncclDevComm;
 
-/* CollectiveArgs + ncclColl are to be a power of two, currently 64 bytes, */
+/* CollectiveArgs + ncclColl are to be a power of two, currently 128 bytes, */
 /* to make sure reads to host from the CUDA kernel are aligned. */
 /* Make sure to adjust padding at the end of ncclColl. */
 struct CollectiveArgs {
@@ -150,6 +150,8 @@ struct CollectiveArgs {
       uint8_t bid;
       uint8_t nChannels;
       uint32_t root;
+      int32_t* group;
+      int32_t grpsize;
       size_t count;
       size_t lastChunkSize;
     } coll;
@@ -170,10 +172,10 @@ struct ncclColl {
       uint16_t nextIndex;
       uint8_t  active;
     };
-    int data[0x10];
+    int data[0x20];
   };
 };
-static_assert(sizeof(struct ncclColl) == (0x10*sizeof(int)), "ncclColl must have a pow2 size");
+static_assert(sizeof(struct ncclColl) == (0x20*sizeof(int)), "ncclColl must have a pow2 size");
 
 struct ncclChannel {
   union {

@@ -352,6 +352,8 @@ static ncclResult_t computeColl(struct ncclInfo* info /* input */, struct ncclCo
   NCCLCHECK(getLoopInfo(info));
 
   coll->args.coll.root = info->root;
+  coll->args.coll.group = info->group;
+  coll->args.coll.grpsize = info->grpsize;
   coll->args.coll.count = info->count;
   coll->args.coll.nChannels = info->nChannels;
   coll->args.coll.nThreads = info->nThreads;
